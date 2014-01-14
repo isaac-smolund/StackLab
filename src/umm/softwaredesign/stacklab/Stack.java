@@ -1,3 +1,5 @@
+//Isaac Smolund and Justin Yadeau
+
 package umm.softwaredesign.stacklab;
 
 import java.util.List;
