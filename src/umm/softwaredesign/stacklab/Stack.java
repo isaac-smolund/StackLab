@@ -15,13 +15,13 @@ import umm.softwaredesign.stacklab.StackIF;
  * @version $Revision: 1.16 $
  */
 public class Stack<T> implements StackIF<T> {
-	ArrayList<T> arr;
+	ArrayList<T> stack;
 	
     /**
      * Construct an empty stack.
      */
     public Stack() {
-    	arr = new ArrayList<T>();
+    	stack = new ArrayList<T>();
     }
 
     /**
@@ -33,9 +33,9 @@ public class Stack<T> implements StackIF<T> {
      *            the list of items to initialize the stack
      */
     public Stack(List<T> items) {
-    	arr = new ArrayList<T>();
+    	stack = new ArrayList<T>();
     	for (int i = 0; i < items.size(); i++) {
-    		arr.add(items.get(i));
+    		stack.add(items.get(i));
     	}
     }
 
@@ -45,7 +45,7 @@ public class Stack<T> implements StackIF<T> {
      * @return the number of elements on the stack
      */
     public int size() {
-    	return arr.size();
+    	return stack.size();
     }
 
     /**
@@ -54,7 +54,7 @@ public class Stack<T> implements StackIF<T> {
      * @return true if the stack is empty, false otherwise
      */
     public boolean isEmpty() {
-    	return arr.isEmpty();
+    	return stack.isEmpty();
     }
 
     /**
@@ -64,7 +64,7 @@ public class Stack<T> implements StackIF<T> {
      *            the value to be pushed.
      */
     public void push(T value) {
-        arr.add(value);
+        stack.add(value);
     }
 
     /**
@@ -76,7 +76,7 @@ public class Stack<T> implements StackIF<T> {
      *             if the stack is empty
      */
     public T pop() {
-        return arr.remove(arr.size() - 1);
+        return stack.remove(stack.size() - 1);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Stack<T> implements StackIF<T> {
      *             if the stack is empty
      */
     public T top() {
-        return arr.get(arr.size() - 1);
+        return stack.get(stack.size() - 1);
     }
 
     /**
@@ -100,16 +100,13 @@ public class Stack<T> implements StackIF<T> {
      *         elements
      */
     public boolean hasElements(List<T> items) {
-    	for (int i = 0; i < arr.size(); i++) {
-    		if (arr.get(i).equals(items.get(0))) {
-    			for (int j = 0; j < items.size(); j++) {
-    				if (!arr.get(i + j).equals(items.get(j)))
-    					break;
-    			}
-    			return true;
+    	if (items.size() != stack.size()) return false;
+    	for (int i = 0; i < items.size(); i++){
+    		if(!stack.get(i).equals(items.get(i))) {
+    			return false;
     		}
     	}
-    	return false;
+    	return true;
     }
 
     /**
@@ -122,6 +119,14 @@ public class Stack<T> implements StackIF<T> {
      */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        String str = "";
+        str += "Stack[";
+        for (T item : stack) {
+        	str += item.toString();
+        	if (!(stack.indexOf(item) == stack.size() - 1))
+        		str += ", ";
+        }
+        str += "]";
+        return str;
     }
 }
